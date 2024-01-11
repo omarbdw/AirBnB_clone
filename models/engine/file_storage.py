@@ -11,21 +11,21 @@ from models.place import Place
 
 
 class FileStorage:
-    """This class manages storage of hbnb models in JSON format"""""
+    """This class manages storage of hbnb models in JSON format"""
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """Returns a dictionary of models currently in storage"""""
+        """Returns a dictionary of models currently in storage"""
         return FileStorage.__objects
 
     def new(self, obj):
-        """Adds new object to storage dictionary"""""
+        """Adds new object to storage dictionary"""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
         FileStorage.__objects[key] = obj
 
     def save(self):
-        """Saves storage dictionary to file"""""
+        """Saves storage dictionary to file"""
         new_dict = {}
         for key, value in FileStorage.__objects.items():
             new_dict[key] = value.to_dict()
@@ -33,7 +33,7 @@ class FileStorage:
             json.dump(new_dict, f)
 
     def reload(self):
-        """Loads storage dictionary from file"""""
+        """Loads storage dictionary from file"""
         try:
             with open(FileStorage.__file_path, mode="r", encoding="utf-8") as f:
                 new_dict = json.load(f)

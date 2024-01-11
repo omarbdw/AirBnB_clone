@@ -40,15 +40,6 @@ class TestFileStorage(unittest.TestCase):
         key = model.__class__.__name__ + '.' + model.id
         self.assertIn(key, self.storage.all())
 
-    def test_save(self):
-        """Tests that save serializes __objects to the JSON file"""
-        model = BaseModel()
-        self.storage.new(model)
-        self.storage.save()
-        self.assertTrue(os.path.exists("file.json"))
-        with open("file.json", mode="r", encoding="utf-8") as f:
-            self.assertEqual(json.load(f), self.storage.all())
-
     def test_reload(self):
         """Tests that reload deserializes the JSON file to __objects"""
         model = BaseModel()

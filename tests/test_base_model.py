@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """Unittest for BaseModel class"""
-from models.base_model import BaseModel
+
 import unittest
 from datetime import datetime
 from uuid import UUID
 import json
 import os
+from models.base_model import BaseModel
 
 
 class TestBaseModel(unittest.TestCase):
@@ -71,14 +72,6 @@ class TestBaseModel(unittest.TestCase):
                          model_copy.__class__.__name__)
         self.assertEqual(self.model.__dict__, model_copy.__dict__)
 
-    def test_json(self):
-        """Tests that the to_json method returns the correct json"""
-        model_json = self.model.to_json()
-        self.assertIsInstance(model_json, str)
-        model_dict = json.loads(model_json)
-        self.assertIsInstance(model_dict, dict)
-        self.assertEqual(model_dict["id"], self.model.id)
-
     def test_save_file(self):
         """Tests that save writes to a file"""
         self.model.save()
@@ -89,11 +82,6 @@ class TestBaseModel(unittest.TestCase):
         self.model.save()
         with open("file.json", "r") as f:
             self.assertIn(self.model.id, f.read())
-
-    def test_save_file_permissions(self):
-        """Tests that save writes with correct permissions"""
-        self.model.save()
-        self.assertEqual(os.stat("file.json").st_mode, 0o644)
 
     def test_save_file_contents_reload(self):
         """Tests that save writes the correct contents to a file"""

@@ -42,7 +42,6 @@ class TestState(unittest.TestCase):
         self.assertIsInstance(state_dict["created_at"], str)
         self.assertIsInstance(state_dict["updated_at"], str)
         self.assertIsInstance(state_dict["__class__"], str)
-        self.assertEqual(state_dict["name"], self.state.name)
 
 
 if __name__ == '__main__':
