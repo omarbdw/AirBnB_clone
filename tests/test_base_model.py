@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Unittest for BaseModel class"""
 from models.base_model import BaseModel
 import unittest
 from datetime import datetime
@@ -77,6 +78,30 @@ class TestBaseModel(unittest.TestCase):
         model_dict = json.loads(model_json)
         self.assertIsInstance(model_dict, dict)
         self.assertEqual(model_dict["id"], self.model.id)
+
+    def test_save_file(self):
+        """Tests that save writes to a file"""
+        self.model.save()
+        self.assertTrue(os.path.isfile("file.json"))
+
+    def test_save_file_contents(self):
+        """Tests that save writes the correct contents to a file"""
+        self.model.save()
+        with open("file.json", "r") as f:
+            self.assertIn(self.model.id, f.read())
+
+    def test_save_file_permissions(self):
+        """Tests that save writes with correct permissions"""
+        self.model.save()
+        self.assertEqual(os.stat("file.json").st_mode, 0o644)
+
+    def test_save_file_contents_reload(self):
+        """Tests that save writes the correct contents to a file"""
+        self.model.save()
+        model_copy = BaseModel(**self.model.to_dict())
+        with open("file.json", "r") as f:
+            self.assertIn(model_copy.id, f.read())
+
 
 if __name__ == '__main__':
     unittest.main()
