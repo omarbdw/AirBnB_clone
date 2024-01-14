@@ -35,7 +35,8 @@ class FileStorage:
     def reload(self):
         """Loads storage dictionary from file"""
         try:
-            with open(FileStorage.__file_path, mode="r", encoding="utf-8") as f:
+            with open(FileStorage.__file_path, mode="r"
+                      , encoding="utf-8") as f:
                 new_dict = json.load(f)
             for key, value in new_dict.items():
                 if value["__class__"] == "BaseModel":
