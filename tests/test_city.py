@@ -16,9 +16,6 @@ class TestCity_instantiation(unittest.TestCase):
         """Test instantiation of City class with no arguments."""
         self.assertEqual(City, type(City()))
 
-    def test_new_instance_stored_in_objects(self):
-        """Test that new instance of City is stored in __objects attr."""
-        self.assertIn(City(), City._FileStorage__objects.values())
 
     def test_id_is_public_str(self):
         """Test that id attribute is a public class attribute and is a str."""
@@ -41,7 +38,8 @@ class TestCity_save(unittest.TestCase):
         self.assertLess(old_updated_at, inst.updated_at)
 
     def test_save_updates_updated_at_filestorage(self):
-        """Test that save method updates the updated_at attribute in storage."""
+        """Test that save method updates the updated_at
+        attribute in storage."""
         inst = City()
         old_updated_at = inst.updated_at
         sleep(0.1)

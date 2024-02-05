@@ -81,7 +81,8 @@ class TestPlace_save(unittest.TestCase):
         self.assertLess(old_updated_at, inst.updated_at)
 
     def test_save_updates_updated_at_filestorage(self):
-        """Test that save method updates the updated_at attribute in storage."""
+        """Test that save method updates the updated_at
+        attribute in storage."""
         inst = Place()
         old_updated_at = inst.updated_at
         sleep(0.1)
